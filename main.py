@@ -13,7 +13,7 @@ def parse_ts(x):
     ts = datetime.datetime.strptime(x, '%d-%m-%Y %H:%M')
     return pd.to_datetime(ts)
 
-data = pd.read_csv("data/KasiaBoroszko_glucose_21-1-2022.csv", skiprows=1)
+data = pd.read_csv("data/KasiaBoroszko_glucose_8-2-2022.csv", skiprows=1)
 
 print(data.columns)
 
@@ -36,7 +36,21 @@ plt.figure()
 plt.plot(cukier_kasi.timestamp, cukier_kasi.sugar)
 plt.show()
 #%%
+def posilki_ts(x):
+    ts = datetime.datetime.strptime(x, '%d.%m.%Y %H:%M')
+    return pd.to_datetime(ts)
 
+food = pd.read_csv("data/posilki.csv")
+food['timestamp'] = food['timestamp'].apply(posilki_ts)
+
+#%%
+START = datetime.datetime.strptime("2022-01-18", "%Y-%m-%d")
+END = datetime.datetime.strptime("2022-02-01", "%Y-%m-%d")
+
+# for each day
+# get data for that day
+# plot line and food
+#%%
 fig = px.line(cukier_kasi, x="timestamp", y="sugar")
 
 # Add shape regions
